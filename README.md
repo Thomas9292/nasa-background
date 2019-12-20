@@ -15,6 +15,11 @@ Install the requirements:
 $ pip install -r requirements.txt
 ```
 
+For Mac OS, [appscript](https://pypi.org/project/appscript/) should be installed:
+```
+pip install appscript
+```
+
 Run the application:
 ```
 $ python nasa_background --help
