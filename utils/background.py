@@ -1,17 +1,39 @@
 import os
 import platform
 
+import click
+
 
 def change_background(file_path):
     """
     Checks the operating system and defers to OS-specific function
     """
-    if platform.system().lower().startswith('win'):
-        return change_windows_background(file_path)
-    elif platform.system().lower().startswith('lin'):
-        return change_linux_background(file_path)
-    elif platform.system().lower().startswith('dar'):
-        return change_mac_background(file_path)
+    MIN_FILE_SIZE = 500
+
+    try:
+        # Check file size of file
+        file_size_kb = os.path.getsize(file_path) / 1000
+
+        # Prompt user if file size under limit
+        if file_size_kb < MIN_FILE_SIZE:
+            if not click.confirm(f"The file size of this background is relatively small ({file_size_kb} kb), are you sure you want to continue?"):
+                return
+
+        # Detect operating system and defer to specific function
+        if platform.system().lower().startswith('win'):
+            return change_windows_background(file_path)
+        elif platform.system().lower().startswith('lin'):
+            return change_linux_background(file_path)
+        elif platform.system().lower().startswith('dar'):
+            return change_mac_background(file_path)
+        click.echo("The image has succesfully been set as background.")
+
+    except FileNotFoundError as e:
+        click.echo("The background file was not found..")
+    except Exception as e:
+        click.echo(
+            "Unable to change the background, your operating system might not yet be supported.."
+        )
 
 
 def change_windows_background(file_path):
@@ -34,7 +56,7 @@ def change_windows_background(file_path):
 
 def change_linux_background(file_path):
     """
-    Change the background on linux operating systems
+    Change the background on Linux operating systems
     """
     import subprocess
 
@@ -75,16 +97,18 @@ def change_linux_background(file_path):
 
 def change_mac_background(file_path):
     """
-    Change the background on mac operating systems
+    Change the background on Mac operating systems
     """
     try:
         from appscript import app, mactypes
         app('Finder').desktop_picture.set(mactypes.File(file_path))
     except ImportError:
         import subprocess
-        SCRIPT = """/usr/bin/osascript<<END
+        SCRIPT = """
+                 /usr/bin/osascript<<END
                  tell application "Finder" to
                  set desktop picture to POSIX file "%s"
                  end tell
-                 END"""
-        subprocess.Popen(SCRIPT%file_path, shell=True)
+                 END
+                 """
+        subprocess.Popen(SCRIPT % file_path, shell=True)
