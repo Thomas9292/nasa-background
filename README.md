@@ -1,6 +1,6 @@
 # nasa_background
 
-A PyQt5 GUI application to download NASA pictures and apply them as the background for your pc.
+A python CLI application to download NASA pictures and apply them as the background for your pc.
 
 ## Basic setup
 
@@ -11,10 +11,10 @@ $ pip install -r requirements.txt
 
 Run the application:
 ```
-$ python -m nasa_background --help
+$ python nasa_background --help
 ```
 
 To run the tests:
 ```
-    $ pytest
+$ pytest
 ```

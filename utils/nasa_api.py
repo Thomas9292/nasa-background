@@ -14,7 +14,7 @@ if not os.path.exists(IMAGE_FOLDER):
 
 def get_info(date=datetime.today()):
     """
-    Downloads the meta-info about picture of the day for specified date
+    Downloads the meta-info about the picture of the day for specified date
 
     Arguments:
     date -- date for which POD should be retrieved, defaults to today
@@ -33,6 +33,7 @@ def get_info(date=datetime.today()):
         response.raise_for_status()
         return response.json()
     except Exception as e:
+        click.echo(e)
         click.echo(f"Could not download meta-info for POD {date.date()}..")
         raise e
 

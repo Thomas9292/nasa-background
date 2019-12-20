@@ -19,7 +19,7 @@ def update():
             nasa_api.download_image()
 
     except Exception as e:
-        click.echo("Fatal error encountered, exiting program..", err=True)
+        click.echo("Fatal error encountered, exiting program..")
 
 
 if __name__ == '__main__':
