@@ -1,6 +1,6 @@
 import click
 
-from utils import nasa_api
+from utils import nasa_api, background
 
 
 @click.group()
@@ -15,8 +15,9 @@ def update():
         click.echo(f"Title: {meta_info['title']}\n")
         click.echo(meta_info['explanation'] + "\n")
 
-        if click.confirm("Do you wish to download this image?"):
-            nasa_api.download_image()
+        if click.confirm("Do you wish to download this image and set it as background?"):
+            file_path = nasa_api.download_image()
+            background.change_background(file_path)
 
     except Exception as e:
         click.echo("Fatal error encountered, exiting program..")

@@ -33,7 +33,6 @@ def get_info(date=datetime.today()):
         response.raise_for_status()
         return response.json()
     except Exception as e:
-        click.echo(e)
         click.echo(f"Could not download meta-info for POD {date.date()}..")
         raise e
 
@@ -44,24 +43,35 @@ def download_image(date=datetime.today()):
 
     Arguments:
     date -- date for which POD should be retrieved, defaults to today
+
+    Output:
+    File path of saved image
     """
     try:
+        # Download meta_info for url
         meta_info = get_info(date=date)
         url = meta_info['hdurl']
 
-        title = meta_info['title'].replace(' ', '_')
+        # Construct path to save image
+        title = meta_info['title'].replace(' ', '-')
         img_name = f"{date.strftime('%Y-%m-%d')}_{title}.jpg"
         img_path = os.path.join(IMAGE_FOLDER, img_name)
 
+        # Initialize stream and filesize
         response = requests.get(url, stream=True)
         total_size = int(response.headers.get('content-length'))
 
         with open(img_path, 'wb') as local_file:
+            # Initialize progress bar
             with click.progressbar(
                     length=total_size, label=f"Downloading - {meta_info['title']} ({date.date()})") as bar:
+                # Download chunks and update progress bar
                 for data in response.iter_content(chunk_size=4096):
                     local_file.write(data)
                     bar.update(len(data))
+
+        return img_path
+        
     except Exception as e:
-        click.echo("Could not download")
+        click.echo(f"Could not download: {meta_info['title']}")
         raise e
