@@ -21,6 +21,7 @@ def update():
 
     except Exception as e:
         click.echo("Fatal error encountered, exiting program..")
+        click.echo(e)
 
 
 if __name__ == '__main__':

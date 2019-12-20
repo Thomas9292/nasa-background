@@ -3,22 +3,41 @@ import platform
 
 
 def change_background(file_path):
+    """
+    Checks the operating system and defers to OS-specific function
+    """
     if platform.system().lower().startswith('win'):
-        # import windows specific modules and execute
-        pass
+        return change_windows_background(file_path)
     elif platform.system().lower().startswith('lin'):
-        # import linux specific modules and execute
-        import subprocess
         return change_linux_background(file_path)
     elif platform.system().lower().startswith('dar'):
-        # import mac OS specific modules and execute
-        pass
+        return change_mac_background(file_path)
+
+
+def change_windows_background(file_path):
+    """
+    Change the background on windows operating systems
+    """
+    import ctypes
+    import struct
+
+    # Check whether a 32-bit or 64-bit version is used
+    is_64_bit = struct.calcsize('P') * 8 == 64
+
+    if is_64bit:
+        ctypes.windll.user32.SystemParametersInfoW(SPI_SETDESKWALLPAPER, 0,
+                                                   PATH, 3)
+    else:
+        ctypes.windll.user32.SystemParametersInfoA(SPI_SETDESKWALLPAPER, 0,
+                                                   PATH, 3)
 
 
 def change_linux_background(file_path):
     """
     Change the background on linux operating systems
     """
+    import subprocess
+
     # Initialize variables
     ARG_MAP = {
         'feh': ['feh', ['--bg-center'], '%s'],
@@ -52,3 +71,20 @@ def change_linux_background(file_path):
     # Parse and execute background change command
     pargs = [bkg_setter] + args + [pic_arg % file_path]
     subprocess.call(pargs)
+
+
+def change_mac_background(file_path):
+    """
+    Change the background on mac operating systems
+    """
+    try:
+        from appscript import app, mactypes
+        app('Finder').desktop_picture.set(mactypes.File(file_path))
+    except ImportError:
+        import subprocess
+        SCRIPT = """/usr/bin/osascript<<END
+                 tell application "Finder" to
+                 set desktop picture to POSIX file "%s"
+                 end tell
+                 END"""
+        subprocess.Popen(SCRIPT%file_path, shell=True)
