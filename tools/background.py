@@ -21,11 +21,12 @@ def change_background(file_path):
 
         # Detect operating system and defer to specific function
         if platform.system().lower().startswith('win'):
-            return change_windows_background(file_path)
+            change_windows_background(file_path)
         elif platform.system().lower().startswith('lin'):
-            return change_linux_background(file_path)
+            change_linux_background(file_path)
         elif platform.system().lower().startswith('dar'):
-            return change_mac_background(file_path)
+            change_mac_background(file_path)
+
         click.echo("The image has succesfully been set as background.")
 
     except FileNotFoundError as e:
