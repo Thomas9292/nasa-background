@@ -5,7 +5,8 @@ from tools.utils import parse_str_to_date
 
 
 @click.group()
-@click.option("--date", default=None, help="Enter the date as a single string in YYYY-MM-DD format.")
+@click.option("--date", default=None, help="Enter the date as a single string in YYYYMMDD or YYYY-MM-DD format,
+              " or any other format where the numbers are seperated by an arbitrary seperator.")
 @click.pass_context
 def nasa_background(ctx, date):
     from datetime import datetime
@@ -13,6 +14,7 @@ def nasa_background(ctx, date):
         date = datetime.now()
     else:
         date = parse_str_to_date(date)
+    print(date)
     ctx.obj = {"DATE": date}
 
 
