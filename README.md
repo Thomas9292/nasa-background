@@ -1,4 +1,4 @@
-# nasa_background
+# nasa_background ![build passing](https://travis-ci.com/Thomas9292/nasa-background.svg?branch=master)
 
 A python CLI application to download NASA pictures and apply them as the background for your pc.
 
