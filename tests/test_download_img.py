@@ -1,7 +1,6 @@
-from tools.nasa_api import download_image, os
 import pytest
-from os import path
-import sys
+
+from tools.nasa_api import download_image, os
 
 
 @pytest.fixture

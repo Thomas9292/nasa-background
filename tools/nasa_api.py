@@ -60,7 +60,9 @@ def download_image(date=datetime.today()):
 
         # Check if img is already downloaded
         if os.path.exists(img_path):
-            click.echo("Today's img already downloaded, setting as background")
+            click.echo(
+                "Today's image has already been downloaded and is now being set as background."
+            )
 
         else:
             # Initialize stream and filesize
