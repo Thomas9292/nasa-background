@@ -19,5 +19,5 @@ def test_img_path(DATE_IMG):
 def test_img_cached(DATE_IMG, mock_os_path_exists, capsys):
     img_path = download_image(date=DATE_IMG)
     captured = capsys.readouterr()
-    assert "Today's img already downloaded, setting as background" in captured[
+    assert "Today's image has already been downloaded and is now being set as background." in captured[
         0]
