@@ -5,8 +5,7 @@ from tools.utils import parse_str_to_date
 
 
 @click.group()
-@click.option("--date", default=None, help="Enter the date as a single string in YYYYMMDD or YYYY-MM-DD format,
-              " or any other format where the numbers are seperated by an arbitrary seperator.")
+@click.option("--date", default=None, help="Enter the date as a single string in YYYYMMDD or YYYY-MM-DD format.")
 @click.pass_context
 def nasa_background(ctx, date):
     from datetime import datetime
@@ -30,9 +29,10 @@ def update(ctx):
         if click.confirm("Do you wish to download this image and set it as background?"):
             file_path = nasa_api.download_image(ctx.obj["DATE"])
             background.change_background(file_path)
-
+    except KeyError:
+        click.echo(f"Image not found for the selected date {ctx.obj['DATE']}. ")
     except Exception as e:
-        click.echo("Fatal error encountered, exiting program..")
+        click.echo("Fatal error encountered, exiting program.")
         click.echo(e)
 
 
