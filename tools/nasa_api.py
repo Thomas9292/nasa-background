@@ -71,7 +71,7 @@ def download_image(date=datetime.today()):
                     bar.update(len(data))
 
         return img_path
-        
+
     except Exception as e:
         click.echo(f"Could not download: {meta_info['title']}")
         raise e
