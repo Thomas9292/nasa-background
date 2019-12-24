@@ -42,18 +42,10 @@ def change_windows_background(file_path):
     Change the background on windows operating systems
     """
     import ctypes
-    import struct
-
-    # Check whether a 32-bit or 64-bit version is used
-    is_64_bit = struct.calcsize('P') * 8 == 64
-
-    if is_64bit:
-        ctypes.windll.user32.SystemParametersInfoW(SPI_SETDESKWALLPAPER, 0,
-                                                   PATH, 3)
-    else:
-        ctypes.windll.user32.SystemParametersInfoA(SPI_SETDESKWALLPAPER, 0,
-                                                   PATH, 3)
-
+    SPI_SETDESKWALLPAPER = 20
+    
+    ctypes.windll.user32.SystemParametersInfoW(SPI_SETDESKWALLPAPER, 0,
+                                                   file_path, 1)
 
 def change_linux_background(file_path):
     """
