@@ -4,7 +4,9 @@ import pytest
 
 from tools.nasa_api import download_image, get_info, os
 
-# Tests for get_info
+"""
+Tests for get_info()
+"""
 def test_get_info_specific_date():
     # Define the answer for 2019-12-23
     correct_info = {
@@ -23,7 +25,9 @@ def test_get_info_specific_date():
     assert obtained_info == correct_info
 
 
-# Tests for download_image
+"""
+Tests for download_image()
+"""
 @pytest.fixture
 def mock_os_path_exists(monkeypatch):
     def mock_path_exists(*args, **kwargs):
@@ -34,7 +38,9 @@ def mock_os_path_exists(monkeypatch):
 
 def test_img_path(DATE_IMG):
     expected = '2019-12-24_A-Northern-Winter-Sky-Panorama.jpg'
-    assert expected in download_image(date=DATE_IMG)
+    img_path = download_image(date=DATE_IMG)
+    assert expected in img_path
+    assert os.path.exists(img_path)
 
 
 def test_img_cached(DATE_IMG, mock_os_path_exists, capsys):
