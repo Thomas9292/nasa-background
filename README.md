@@ -4,11 +4,13 @@ A python CLI application to download NASA pictures and apply them as the backgro
 
 ## Supported operating systems
  - Ubuntu Linux
- - Windows (Untested)
+ - Windows
  - Mac OS (Untested)
 
 
 ## Basic setup
+
+**Note: nasa_background requires python >= 3.6**
 
 Install the requirements:
 ```
@@ -27,5 +29,5 @@ $ python nasa_background.py --help
 
 To run the tests:
 ```
-$ pytest
+$ pytest tests
 ```

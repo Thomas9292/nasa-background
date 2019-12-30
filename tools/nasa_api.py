@@ -61,18 +61,28 @@ def download_image(date=datetime.today()):
         img_name = f"{date.strftime('%Y-%m-%d')}_{title}.jpg"
         img_path = os.path.join(IMAGE_FOLDER, img_name)
 
-        # Initialize stream and filesize
-        response = requests.get(url, stream=True)
-        total_size = int(response.headers.get('content-length'))
+        # Check if img is already downloaded
+        if os.path.exists(img_path):
+            click.echo(
+                "Today's image has already been downloaded and is now being set as background."
+            )
 
-        with open(img_path, 'wb') as local_file:
-            # Initialize progress bar
-            with click.progressbar(
-                    length=total_size, label=f"Downloading - {meta_info['title']} ({date.date()})") as bar:
-                # Download chunks and update progress bar
-                for data in response.iter_content(chunk_size=4096):
-                    local_file.write(data)
-                    bar.update(len(data))
+        else:
+            # Initialize stream and filesize
+            response = requests.get(url, stream=True)
+            total_size = int(response.headers.get('content-length'))
+
+            with open(img_path, 'wb') as local_file:
+                # Initialize progress bar
+                with click.progressbar(
+                        length=total_size,
+                        label=
+                        f"Downloading - {meta_info['title']} ({date.date()})"
+                ) as bar:
+                    # Download chunks and update progress bar
+                    for data in response.iter_content(chunk_size=4096):
+                        local_file.write(data)
+                        bar.update(len(data))
 
         return img_path
 
