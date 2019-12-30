@@ -18,7 +18,7 @@ def update(date):
         date = datetime.now()
     else:
         date = parse_str_to_date(date)
-    print(date)
+    
     '''Get the newest NASA Picture of the Day and set it as background'''
     try:
         meta_info = nasa_api.get_info(date)
