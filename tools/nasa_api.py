@@ -51,6 +51,9 @@ def download_image(date=datetime.today()):
     try:
         # Download meta_info for url
         meta_info = get_info(date=date)
+        print(meta_info.keys())
+        if "hdurl" not in meta_info.keys():
+            raise KeyError("download_image: meta_info does not contain hdurl.")
         url = meta_info['hdurl']
 
         # Construct path to save image
@@ -83,6 +86,8 @@ def download_image(date=datetime.today()):
 
         return img_path
 
+    except KeyError as e:
+        raise e
     except Exception as e:
         click.echo(f"Could not download: {meta_info['title']}")
         raise e
