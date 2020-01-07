@@ -4,5 +4,6 @@ click==6.7
 idna==2.8
 py==1.4.34
 pytest==3.2.3
+pytest-mock>=2.0.0
 requests==2.22.0
 urllib3==1.25.7
