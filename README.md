@@ -30,7 +30,7 @@ $ python nasa_background.py --help
 ## Testing:
 Install the test specific dependencies:
 ```
-pip install -r test-requirements.txt
+$ pip install -r test-requirements.txt
 ```
 
 Run the tests
