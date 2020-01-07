@@ -27,7 +27,13 @@ Run the application:
 $ python nasa_background.py --help
 ```
 
-To run the tests:
+## Testing:
+Install the test specific dependencies:
+```
+pip install -r test-requirements.txt
+```
+
+Run the tests
 ```
 $ pytest tests
 ```
