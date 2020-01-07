@@ -4,7 +4,7 @@ import platform
 import click
 
 
-def change_background(file_path):
+def change_background(file_path, auto):
     """
     Checks the operating system and defers to OS-specific function
     """
@@ -16,7 +16,7 @@ def change_background(file_path):
 
         # Prompt user if file size under limit
         if file_size_kb < MIN_FILE_SIZE:
-            if not click.confirm(f"The file size of this background is relatively small ({file_size_kb} kb), are you sure you want to continue?"):
+            if auto or not click.confirm(f"The file size of this background is relatively small ({file_size_kb} kb), are you sure you want to continue?"):
                 return
 
         # Detect operating system and defer to specific function
@@ -43,7 +43,7 @@ def change_windows_background(file_path):
     """
     import ctypes
     SPI_SETDESKWALLPAPER = 20
-    
+
     ctypes.windll.user32.SystemParametersInfoW(SPI_SETDESKWALLPAPER, 0,
                                                    file_path, 1)
 

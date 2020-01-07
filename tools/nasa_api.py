@@ -51,7 +51,6 @@ def download_image(date=datetime.today()):
     try:
         # Download meta_info for url
         meta_info = get_info(date=date)
-        print(meta_info.keys())
         if "hdurl" not in meta_info.keys():
             raise KeyError("download_image: meta_info does not contain hdurl.")
         url = meta_info['hdurl']
