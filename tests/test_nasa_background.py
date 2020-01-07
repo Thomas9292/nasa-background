@@ -1,6 +1,3 @@
-"""
-Tests for update()
-"""
 from datetime import datetime
 
 import pytest
@@ -11,6 +8,9 @@ from tools.background import change_background
 from tools.nasa_api import get_info
 
 
+"""
+Tests for update()
+"""
 # Test update --auto
 def test_update_auto(mocker, DATE_IMG):
     mock_meta_info = {'title': 'test_title', 'explanation': 'test_explanation'}
