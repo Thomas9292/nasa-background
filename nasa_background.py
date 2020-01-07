@@ -17,7 +17,7 @@ def nasa_background():
               help="Enter the date as a single string in YYYYMMDD or YYYY-MM-DD format." )
 @click.option("--auto",
               is_flag=True,
-              help="Disables prompts and sets the background automatically if this can succefully be completed.s" )
+              help="Disables prompts and sets the background automatically if this can successfully be completed." )
 def update(date, auto):
     '''Get the newest NASA Picture of the Day and set it as background'''
     # Check if date is passed as argument, set to default (today) otherwise
