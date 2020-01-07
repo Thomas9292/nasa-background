@@ -1,7 +1,11 @@
-from tools.utils import parse_str_to_date
 from datetime import datetime
 
+from tools.utils import parse_str_to_date
 
+
+"""
+Tests for get_info()
+"""
 def test_parse_str_to_date_short():
     try:
         parse_str_to_date("190706")
@@ -28,11 +32,3 @@ def test_parse_str_to_date_minified():
 
 def test_parse_str_to_date_extra():
     assert parse_str_to_date("2019-7-6-9-12-3-34-5-1") == datetime(2019, 7, 6)
-
-
-if __name__ == "__main__":
-    test_parse_str_to_date_short()
-    test_parse_str_to_date_incomplete()
-    test_parse_str_to_date_full()
-    test_parse_str_to_date_minified()
-    test_parse_str_to_date_extra()
