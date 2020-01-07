@@ -4,7 +4,7 @@ from tools.utils import parse_str_to_date
 
 
 """
-Tests for get_info()
+Tests for parse_str_to_date()
 """
 def test_parse_str_to_date_short():
     try:

@@ -1,6 +1,8 @@
+from datetime import datetime
+
 import click
 
-from tools import nasa_api, background
+from tools import background, nasa_api
 from tools.utils import parse_str_to_date
 
 
