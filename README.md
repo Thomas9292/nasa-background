@@ -22,7 +22,13 @@ For Mac OS, [appscript](https://pypi.org/project/appscript/) should be installed
 $ pip install appscript
 ```
 
-Run the application:
+## Usage
+To set the current NASA APOD as background run:
+```
+$ python nasa_background.py update
+```
+
+For more information on functionality run:
 ```
 $ python nasa_background.py --help
 ```
